@@ -1,0 +1,36 @@
+<mat-grid-list cols="6" rowHeight="60px">
+  <mat-grid-tile colspan="6" rowspan="1">
+
+<div *ngIf="currentUpload">
+  <mat-list>
+    <mat-list-item>
+      <i class="material-icons check" style="color:#76FF03">check_circle</i><h4 style="color:#673AB7">Upload, réussi!</h4>
+    </mat-list-item>
+  </mat-list>
+
+  <!--<progress class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>-->
+  <!--Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete-->
+</div>
+  </mat-grid-tile>
+
+    <mat-grid-tile colspan="6" rowspan="1">
+      <h4 style="color:#673AB7">Drop File</h4>
+    </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="2"></mat-grid-tile>
+    <!--<mat-grid-tile colspan="4" rowspan="2">-->
+
+
+  <mat-grid-tile class="dropzone"
+                 colspan="4"
+                 rowspan="2"
+       fileDrop
+                 (change)="previewFile($event)"
+       (filesDropped)="handleDrop($event)"
+       (filesHovered)="dropzoneState($event)"
+       [ngClass]="{'active': dropzoneActive}">
+    <i class="material-icons" style="color: #ffffff">archive</i>
+  </mat-grid-tile>
+
+    <!--</mat-grid-tile>-->
+</mat-grid-list>
+<!--<input type="file" accept="text/plain" (change)="onFileChange($event)">-->

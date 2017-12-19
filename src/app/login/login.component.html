@@ -1,0 +1,48 @@
+
+
+  <mat-grid-list cols="1" rowHeight="900px" class="grid_list_login">
+    <mat-grid-tile colspan="1" class="title">
+      <mat-card class="md_card_login">
+        <mat-card-title></mat-card-title>
+        <mat-card-content>
+          <mat-grid-list cols="4" rowHeight="100px">
+            <mat-grid-tile colspan = "4" rowspan="3" class="un">
+              <div class="logo"><app-svg-text [texteSelection]="texteSelection" [parent]="parent"></app-svg-text></div>
+            </mat-grid-tile>
+            <img class="titre-login" src="./assets/svg_fournisseur_acces/titre.svg"/>
+            <mat-grid-tile colspan = "4" rowspan="1" class="deux">
+              <h2 class="login-titre">Vous devez vous identifier</h2>
+            </mat-grid-tile>
+            <mat-grid-tile  colspan = "4" rowspan="5" class="trois">
+              <mat-list>
+                <mat-list-item class="list-item-button">
+                  <button mat-raised-button (click)="facebookLogin()" routerLink="/inscription" routerLinkActive="active" color="primary" style="width: 400px ;  height:75px ; position: absolute; top: -105px"><h3 class="login-text-button facebook">Connectez-vous avec Facebook</h3> <img class="image-providers" src="./assets/svg_fournisseur_acces/Facebook_Home_logo_old.svg"/></button>
+                </mat-list-item>
+                <mat-list-item class="list-item-button">
+                  <button (click)="googleLogin()" mat-raised-button routerLink="/inscription" routerLinkActive="active" color="primary" style="width: 400px ;  height:75px; position: absolute; top: -75px "><h3 class="login-text-button">Connectez-vous avec Google</h3> <img class="google" src="./assets/svg_fournisseur_acces/Google_-G-_Logo.svg"/></button>
+                </mat-list-item>
+                <mat-list-item class="list-item-button">
+                  <button (click)=" twitterLogin()" mat-raised-button routerLink="/inscription" routerLinkActive="active" color="primary" style="width: 400px ;  height:75px; position: absolute; top: -45px "><h3 class="login-text-button">Connectez-vous avec Twitter</h3> <img class="google" src="./assets/svg_fournisseur_acces/Twitter_Bird.svg"/></button>
+                </mat-list-item>
+                <mat-list-item class="list-item-button">
+                  <button (click)=" twitterLogin()" mat-raised-button routerLink="/inscription" routerLinkActive="active" color="primary" style="width: 400px ;  height:75px"><h3 class="login-text-button">Connectez-vous avec Twitter</h3> <img class="imgGit" src="./assets/svg_fournisseur_acces/github.svg"/></button>
+                </mat-list-item>
+              </mat-list>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="getAuth()"><p class="login-jouindre-button">Pour nous rejouindre</p></button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+
+
+
+
+
+
+

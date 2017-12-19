@@ -1,0 +1,62 @@
+.md_card_editeur{
+  margin: 25px;
+}
+button{
+  float:right;
+}
+.addAnnotateur{
+  width: 500px;
+  height: 425px;
+}
+.view_card_editeur{
+  margin-left: 200px;
+  margin-top:50px;
+  margin-right: 200px;
+}
+
+.card_title{
+  font-size: 150%;
+  color:#673AB7;
+
+}
+.card_ajour_fichier{
+  width: 600px;
+  height: 450px;
+
+}
+.card_ajour_fichier_content{
+ padding-top: 50px;
+
+}
+.example-full-width{
+  width: 100%;
+}
+span{
+  color:#673AB7
+}
+.editeur_clear{
+  color:#673AB7;
+  font-size: 100%;
+}
+
+.input_editeur{
+  width: 85%;
+}
+
+.editeur_clear_button, .boutonMenuAdmin{
+  position: absolute;
+  top:15px;
+  right:5px;
+}
+.boutonMenuAdmin{
+  position: absolute;
+  top:25px;
+  right:20px;
+}
+.home{
+  width: 1200px;
+  height: auto;
+
+}
+
+

@@ -1,0 +1,33 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+position: fixed;
+  top: 425px;
+
+}
+/*.example-spacer {*/
+  /*flex: 1 1 auto;*/
+
+/*}*/
+.example-header {
+  min-height: 64px;
+  display: flex;
+  align-items: baseline;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+  position: relative;
+  background-color: white;
+
+}
+
+.mat-form-field {
+  font-size: 14px;
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.mat-table {
+  overflow: auto;
+}

@@ -1,0 +1,60 @@
+<div class="example-container mat-elevation-z8">
+  <h1 *ngIf="collectionNom !== 'Catégories'&& collectionNom !== 'mots'" style="text-align: center; color: #673AB7">{{collectionNom}}</h1>
+  <div class="example-header">
+    <mat-form-field floatPlaceholder="never" style="margin-top: 20px">
+      <span matPrefix style="font-size: medium"><i class="material-icons" style="color:grey">search</i></span>
+      <input matInput #filter >
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="nom"  >
+      <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+      <mat-cell *matCellDef="let row" >
+        <form *ngIf="collectionNom === 'Catégories'" >
+          <mat-form-field>
+
+            <mat-select *ngIf="collectionNom === 'Catégories'" placeholder="Couleur" [(ngModel)]="selectedValue" name="couleur" (change)="choixCouleur(row.nom)">
+              <mat-option *ngFor="let couleur of couleurs" [value]="couleur.value">
+                {{couleur.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+
+          <mat-form-field *ngIf="collectionNom === 'mots'">
+            <mat-select *ngIf="collectionNom === 'mots'" placeholder="Couleur" [(ngModel)]="selectedValueMots"  (change)="choixCouleurMots(row.icon)">
+                <mat-option *ngFor="let couleur of couleurs" [value]="couleur.value">
+                  {{couleur.viewValue}}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+
+
+        <button *ngIf="collectionNom !== 'Catégories' && collectionNom !== 'mots'" mat-button [matMenuTriggerFor]="menu"><i class="material-icons"  style="color:grey">menu</i></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Visualiser</button>
+          <button mat-menu-item (click)="modifierInfUserClick(row.icon)">Modifier</button>
+          <button mat-menu-item>Suprimer</button>
+          <button mat-menu-item *ngIf="collectionNom === 'Textes'">Télécharger</button>
+        </mat-menu>
+         </mat-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="icon">
+      <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+
+          <a *ngIf="collectionNom === 'Catégories'">Catégorie	&nbsp;</a> {{row.nom}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

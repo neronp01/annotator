@@ -1,0 +1,65 @@
+.svg_logo{
+  position: absolute;
+  top:0px;
+  margin-top: 25px;
+   width: 525px;
+   height: 525px;
+   background-color: #673AB7;;
+   border-radius: 50%;
+
+ }
+.titre-uqo{
+  fill:#ffffff;
+  font-size:150px;
+  opacity: .7;
+}
+
+.app-svg-text{
+  position: absolute;
+  top:0px;
+  left:0px;
+  z-index: 0;
+}
+
+.titre_svg{
+  position:absolute;
+  top:150px;
+  left:40px;
+  width:600px;
+  height:600px;
+  z-index: 10;
+}
+
+.sous-titre_svg{
+  fill:#ffffff;
+  font-size:40px;
+  opacity: .7;
+}
+
+.sous-titre_svg2{
+  fill:#FFD600;
+  font-size:40px;
+
+}
+
+.view_card{
+  position: absolute;
+  top:30px;
+  height: 500px;
+  flex: 1 1 auto;
+}
+
+.container_apercu{
+
+  height: 800px;
+
+}
+
+.titre-content-card{
+  margin-top: 20px;
+}
+.titre-content-card2{
+  margin-top: 50px;
+}
+
+

@@ -1,0 +1,60 @@
+.md_card_login{
+  width: 400px;
+  height: 800px;
+
+}
+
+.grid_list_login{
+  margin-top: 50px;
+  background-color: #7e57c2;
+}
+
+.login-titre{
+  font-family: "Times New Roman", Times, serif;
+  color:#546E7A;
+}
+
+.image-providers{
+  float: right;
+}
+.login-text-button{
+  float: left;
+  font-family: "Times New Roman", Times, serif;
+}
+.list-item-button{
+  height: 85px;
+}
+
+
+.login-button{
+  height:75px;
+}
+
+.login-jouindre-button{
+  font-family: "Times New Roman", Times, serif;
+  color:#546E7A;
+}
+.imgGit{
+ margin-left: 117px;
+  margin-top: 12px;
+}
+.logo{
+  height:325px;
+  width: 325px;
+  background-color: #673AB7;
+  border-radius: 80%;
+  position: absolute;
+  left:-100px;
+
+
+}
+.un{
+  background-color: #7e57c2;;
+}
+.titre-login{
+  position: absolute;
+  left :0px;
+  top: 80px;
+}
+.facebook{}
+

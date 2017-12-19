@@ -1,0 +1,254 @@
+<mat-grid-list *ngIf="show === 'user'" cols="1" rowHeight="2:1">
+  <mat-grid-tile colspan="1">
+<mat-card *ngIf="true" class="addUser">
+  <form [formGroup]="userForm" novalidate>
+    <mat-grid-list cols="4" rowHeight="60px">
+      <mat-grid-tile colspan = "4" rowspan="1">
+        <mat-card-header>
+          <mat-card-title>
+            <h2>{{objParentEdit['action']}} un {{roleSelection}}</h2>
+          </mat-card-title>
+        </mat-card-header>
+      </mat-grid-tile>
+      <mat-grid-tile colspan = "4" rowspan="1">
+        <mat-form-field style="width: 100%">
+          <input matInput id="courriel"
+                 formControlName="courrielForm"
+                 class="form-control"
+                 type="email"
+                 minlength="2"
+                 required
+                 #courriel
+                 placeholder="Courriel" >
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan = "4" rowspan="1">
+        <mat-form-field style="width: 100%">
+          <input matInput id="prenom"
+                 formControlName="prenomForm"
+                 class="form-control"
+                 minlength="2"
+                 required
+                 #prenom
+                 placeholder="Prénom" >
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile colspan = "4" rowspan="1">
+        <mat-form-field style="width: 100%">
+          <input matInput
+                 formControlName="nomForm"
+                 class="form-control"
+                 minlength="2"
+                 required
+                 placeholder="Nom" #nom >
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile  colspan="2" rowspan="1" *ngFor="let projet of projets | async">
+        <!--<mat-selection-list >-->
+          <!--<mat-list-option-->
+            <!--#option-->
+            <!--[value]="ischecked"-->
+            <!--(selectionChange)="selectionProjets($event, projet['nom'])"-->
+          <!--&gt; {{projet['nom']}}</mat-list-option>-->
+        <!--</mat-selection-list>-->
+      </mat-grid-tile>
+      <mat-grid-tile  colspan="4" rowspan="1">
+        <div class="button-row">
+          <button *ngIf="objParentEdit['action'] === 'Ajouter'" mat-raised-button
+                  type="submit"
+                  [disabled] = isDisabled
+                  color="primary"
+                  (click)="enregistrerClick(nom.value,prenom.value,courriel.value)"
+          >Enregistrer
+          </button>
+          <button *ngIf="objParentEdit['action'] === 'Modification'" mat-raised-button
+                  type="submit"
+                  [disabled] = isDisabled
+                  color="primary"
+                  (click)="ModifierClick(nom.value,prenom.value,courriel.value)"
+          >Enregistrer
+          </button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list *ngIf="show === 'project'" cols="1" rowHeight="2:1">
+  <mat-grid-tile colspan="1">
+    <mat-card class="addUser">
+      <form [formGroup]="userForm" novalidate>
+        <mat-grid-list cols="4" rowHeight="60px">
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <mat-card-header>
+              <mat-card-title>
+                <h2>{{objParentEdit['action']}} un {{roleSelection}}</h2>
+              </mat-card-title>
+            </mat-card-header>
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <!--<mat-form-field style="width: 100%">-->
+              <!--<input matInput id="courriel"-->
+                     <!--formControlName="courrielForm"-->
+                     <!--class="form-control"-->
+                     <!--type="email"-->
+                     <!--minlength="2"-->
+                     <!--required-->
+                     <!--#courriel-->
+                     <!--placeholder="Courriel" >-->
+            <!--</mat-form-field>-->
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <mat-form-field style="width: 100%">
+              <input matInput id="prenom"
+                     formControlName="prenomForm"
+                     class="form-control"
+                     minlength="2"
+                     required
+                     #prenom
+                     placeholder="Nom du projet" >
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <form class="example-form">
+              <mat-form-field class="example-full-width">
+                <input #adminProjet
+                       matInput
+                       placeholder="Administrateur Projet"
+                       aria-label="State"
+                       [matAutocomplete]="auto"
+                       [formControl]="stateCtrl">
+                <mat-autocomplete class="example-full-width" #auto="matAutocomplete">
+                  <mat-option *ngFor="let state of filteredStates | async" [value]="state.id">
+                    <span>{{ state['data'].firstname }} , {{state['data'].lastname}}</span> |
+                    <small>Courriel: {{state.id}}</small>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <br />
+            </form>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile colspan = "2" rowspan="3">
+            <mat-selection-list #annotators>
+              <mat-list-option
+                *ngFor="let annotator of annotalorsProject ; let i = index"
+                selected="true"
+              >
+                {{annotator}}
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "2" rowspan="3">
+            <mat-selection-list #corpus>
+              <mat-list-option
+                *ngFor="let corpus of corpusProject ; let i = index"
+              selected="true"
+              >
+                {{corpus}}
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile  colspan="2" rowspan="1" *ngFor="let projet of projets | async">
+          </mat-grid-tile>
+          <mat-grid-tile  colspan="4" rowspan="1">
+            <div class="button-row">
+              <button *ngIf="objParentEdit['action'] === 'Ajouter'" mat-raised-button
+                      type="submit"
+
+                      color="primary"
+                      (click)="enregistrerProjetClick(prenom.value,adminProjet.value)"
+              >Enregistrer
+              </button>
+              <button *ngIf="objParentEdit['action'] === 'Modification'" mat-raised-button
+                      type="submit"
+
+                      color="primary"
+                      (click)="ModifierProjetClick(prenom.value,adminProjet.value)"
+              >Enregistrer
+              </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+<mat-grid-list *ngIf="show === 'categorie'" cols="1" rowHeight="2:1">
+  <mat-grid-tile colspan="1">
+    <mat-card class="addUser">
+      <form [formGroup]="userForm" novalidate>
+        <mat-grid-list cols="4" rowHeight="60px">
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <mat-card-header>
+              <mat-card-title>
+                <h2>{{objParentEdit['action']}} un(e) {{roleSelection}}</h2>
+              </mat-card-title>
+            </mat-card-header>
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "4" rowspan="1">
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <mat-form-field style="width: 100%">
+              <input matInput id="prenom"
+                     formControlName="prenomForm"
+                     class="form-control"
+                     minlength="2"
+                     required
+                     #prenom
+                     placeholder="Nom du projet" >
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <mat-form-field class="example-full-width">
+              <mat-select #couleurcategorie placeholder="Choisir une couleur">
+                <mat-option  style="background-color: #7E57C2"  *ngFor="let couleur of couleurs; let i = index" [value]="couleur['value']">
+                  <span style="text-align: center; color: #ffffff;">{{ couleur['col']}}</span>
+                  <svg height="40" width="60" style="position: absolute; right: 5px">
+                    <circle cx="25" cy="25" r="14"  [attr.fill]="couleurs[i].value" />
+                  </svg>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan = "4" rowspan="1">
+            <mat-form-field class="example-full-width">
+              <mat-select #projetCategorie placeholder="Choisir un projet">
+                <mat-option  *ngFor="let corpus of listeProjet; let i = index" [value]="corpus">
+                  <span style="color: black">{{corpus}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile  colspan="2" rowspan="1" *ngFor="let projet of projets | async">
+          </mat-grid-tile>
+          <mat-grid-tile  colspan="4" rowspan="1">
+            <div class="button-row">
+              <button *ngIf="objParentEdit['action'] === 'Ajouter'" mat-raised-button
+                      type="submit"
+
+                      color="primary"
+                      (click)="enregistrerCategorieClick(prenom.value,couleurcategorie.value , projetCategorie.value )"
+              >Enregistrer
+              </button>
+              <button *ngIf="objParentEdit['action'] === 'Modification'" mat-raised-button
+                      type="submit"
+                      [disabled] = isDisabled
+                      color="primary"
+                      (click)="ModifierProjetClick(prenom.value,adminProjet.value)"
+              >Enregistrer
+              </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

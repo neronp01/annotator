@@ -1,0 +1,58 @@
+<mat-grid-list cols="1" rowHeight="3:1">
+<mat-grid-tile colspan="1">
+
+<div class="example-container mat-elevation-z8">
+  <h3 style="text-align: center; color: #ffffff">{{titre}}</h3>
+  <div class="example-header">
+
+    <br>
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Filter users">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+      <!-- Progress Column -->
+    <ng-container matColumnDef="progress" *ngIf="objParentList['nameOfList'] === 'project' || objParentList['nameOfList'] === 'user'  ">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row" >
+        <span class="example-spacer"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <button  mat-button [matMenuTriggerFor]="menu"><i class="material-icons"  style="color:grey; float:right">menu</i></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="visualisationClick(row.email)">Visualiser</button>
+          <button mat-menu-item (click)="updateDataClick(row.email)">Modifier</button>
+          <button mat-menu-item (click)="removeClick(row.email)">Suprimer</button>
+          <button mat-menu-item *ngIf="collectionNom === 'Textes'">Télécharger</button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="progress" *ngIf="objParentList['nameOfList'] === 'categorie'">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row" >
+        <span class="example-spacer"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <button  mat-button [matMenuTriggerFor]="menu"><i class="material-icons"  style="color:grey; float:right">menu</i></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="visualisationClick(row.email,row.name)">Avec couleur</button>
+          <button mat-menu-item (click)="visualisationClick('#7E57C2')">Sans couleur</button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="userName">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+</mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,90 @@
+.md_card_editeur{
+  margin: 25px;
+}
+button{
+  float:right;
+}
+.addAnnotateur{
+  width: 500px;
+  height: 425px;
+}
+.view_card_editeur{
+
+  margin-top:50px;
+
+}
+
+.card_title{
+  font-size: 150%;
+  color:#673AB7;
+
+}
+.card_ajour_fichier{
+  width: 600px;
+  height: 450px;
+
+}
+.card_ajour_fichier_content{
+  padding-top: 50px;
+
+}
+.example-full-width{
+  width: 100%;
+}
+span{
+  color:#673AB7
+}
+.editeur_clear{
+  color:#673AB7;
+  font-size: 100%;
+}
+
+.input_editeur{
+  width: 85%;
+}
+
+.editeur_clear_button, .boutonMenuAdmin{
+  position: absolute;
+  top:15px;
+  right:5px;
+}
+.boutonMenuAdmin{
+  position: absolute;
+  top:25px;
+  right:20px;
+}
+.home{
+  width: 1200px;
+  height: auto;
+
+}
+.texte{
+  width: 800px;
+  height: auto;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 10px;
+  color: white;
+  font-size: large;
+}
+
+
+

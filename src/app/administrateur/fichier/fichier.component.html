@@ -1,0 +1,37 @@
+<mat-card class="matCard">
+  <mat-grid-list cols="5" rowHeight="50px">
+    <mat-grid-tile colspan="5" rowspan="1">
+   <h3 style="color: #673AB7">{{name}}</h3>
+    </mat-grid-tile>
+  </mat-grid-list>
+<mat-card-content>
+  <mat-grid-list cols="5" rowHeight="50px">
+  <mat-grid-tile colspan="1" rowspan="3">
+    <mat-list>
+      <mat-list-item>
+        <p>Projet:</p>
+      </mat-list-item>
+      <mat-list-item>
+        <p>Date:</p>
+      </mat-list-item>
+      <mat-list-item>
+        <p>size:</p>
+      </mat-list-item>
+    </mat-list>
+  </mat-grid-tile>
+    <mat-grid-tile colspan="3" rowspan="3">
+      <mat-list>
+        <mat-list-item>
+          <p style="color: #673AB7">{{projets}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <p>{{date | date:'yyyy-MM-dd'}}</p>
+        </mat-list-item>
+        <mat-list-item>
+          <p>{{size}}ko</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card-content>
+</mat-card>

@@ -1,0 +1,140 @@
+<mat-toolbar color="primary" style="height: 100px" >
+  <mat-toolbar-row >
+    <button mat-fab (click)="menue()" style="margin-top: 30px;" [matMenuTriggerFor]="menu" class="toolbar_menu_button"><i class="material-icons" style="font-size: xx-large; position: absolute; top:11.5px ; left: 12px; color: #673AB7">menu</i></button>
+
+    <mat-menu  #menu="matMenu">
+      <button class="button" mat-menu-item *ngIf="role > 0" [matMenuTriggerFor]="matAdd">Ajouter</button>
+      <button class="button" mat-menu-item *ngIf="role > 1"  [matMenuTriggerFor]="matList">Liste</button>
+      <button class="button" mat-menu-item [matMenuTriggerFor]="matCorpus">Corpus</button>
+      <button class="button" mat-menu-item (click)="logOut()">logout</button>
+    </mat-menu>
+    <mat-menu #matCorpus="matMenu" >
+      <button mat-menu-item style="width: 200px"  *ngFor="let project of listProjetMenue"  (click)="corpusClick(project['id'])">{{project['id']}}</button>
+    </mat-menu>
+    <mat-menu #matAdd="matMenu">
+      <button mat-menu-item class="button" *ngIf="role > 1" (click)="ajouterUser(0)">lecteur</button>
+      <button mat-menu-item class="button" *ngIf="role > 1" (click)="ajouterUser(1)">annotateur</button>
+      <button mat-menu-item class="button" *ngIf="role > 2" (click)="ajouterUser(2)">administrateurs projets</button>
+      <button mat-menu-item class="button" *ngIf="role > 2" (click)="ajouterProjetClick()">un projet</button>
+      <button mat-menu-item  class="button" *ngIf="role > 1" (click)="addTextClick()">un texte</button>
+      <button mat-menu-item  class="button" *ngIf="role > 1" (click)="addcatClick()">une catégorie</button>
+    </mat-menu>
+    <mat-menu #matList="matMenu">
+      <button mat-menu-item class="button" *ngIf="role > 1" (click)="listUsersClick(0)">lecteurs</button>
+      <button mat-menu-item class="button" *ngIf="role > 1"(click)="listUsersClick(1)">annotateurs</button>
+      <button mat-menu-item class="button" *ngIf="role > 2" (click)="listUsersClick(2)">administrateurs projets</button>
+      <button mat-menu-item  class="button" *ngIf="role > 2" (click)="listProjetClick()">de projets</button>
+    </mat-menu>
+    <img class="toolbar-titre" src="./assets/svg_fournisseur_acces/titre.svg"/>
+    <span class="titre"></span>
+    <span class="example-spacer"> </span>
+    <div class="toolbar-user-name">Bonjour {{user}}</div>
+
+
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="wrapper">
+<span class="flexFirst"></span>
+<section class="view_card">
+  <app-edit-db (objEnfantEdit)="objEnfantEdit($event)" *ngIf="show==='edit'" [objParentEdit]="objParentEdit"></app-edit-db>
+  <app-list-db *ngIf="show==='list'" [objParentList]="objParentList" (objEnfantList)="objEnfantList($event)"></app-list-db>
+
+  <mat-card *ngIf="show==='text'" style="margin: 50px 150px 0px 150px">
+    <mat-horizontal-stepper [linear]="isLinear">
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Associer un projet</ng-template>
+          <mat-selection-list #projectListAddTexte>
+            <mat-list-option *ngFor="let project of projectList"
+             (selectionChange)="selectionProjets($event, project['id'])"
+            >
+              {{project.id}}
+            </mat-list-option>
+          </mat-selection-list>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Associer un annotateur</ng-template>
+          <mat-selection-list #projectListAddTexte>
+            <mat-list-option *ngFor="let annotator of annotatorList"
+                             (selectionChange)="selectionAnnotators($event, annotator['id'])"
+            >
+              {{annotator['data'].firstname}}  &nbsp;  {{annotator['data'].lastname}}
+            </mat-list-option>
+          </mat-selection-list>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Charger le texte</ng-template>
+
+
+        <div>
+          <input type="file" accept="text/plain" (change)="onFileChange($event)">
+        </div>
+        <button mat-button color="primary" style="margin-top: 45px" (click)="fermerClick()">Fermer</button>
+      </mat-step>
+    </mat-horizontal-stepper>
+   </mat-card>
+<app-annotateur [objParentVisu]="objParentVisu" *ngIf="show==='visualisation'"></app-annotateur>
+  <mat-card *ngIf="show==='accueil'">
+  <div class="container_apercu">
+    <mat-grid-list cols="9" rowHeight="600px">
+      <mat-grid-tile colspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="3">
+        <div class="svg_logo">
+          <app-svg-text class="app-svg-text" [parent] = "parent" [texteSelection]="texteSelection"></app-svg-text>
+          <svg class="titre_svg">
+            <g>
+              <text x="50" y="150" class="titre-uqo">
+                UQO
+              </text>
+            </g>
+            <g>
+              <text x="230" y="200" class="titre-uqo" class="sous-titre_svg">
+                Inf-1583
+              </text>
+            </g>
+            <g class="svg-groupe">
+              <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 932 224"><defs><style>.cls-1{font-size:100px;fill:#ffd600;font-family:SegoeScript, Segoe Script;}.cls-2{letter-spacing:0.07em;}</style></defs><title>groupe</title><g id="Calque_2" data-name="Calque 2"><g id="Calque_1-2" data-name="Calque 1"><text class="cls-1" transform="translate(400 10)">gr<tspan class="cls-2" x="103.17" y="0">.</tspan><tspan x="135.25" y="0">02</tspan></text></g></g></svg>
+            </g>
+          </svg>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="3">
+
+        <mat-card  class="view_card2">
+          <mat-card-header >
+            <mat-card-title>Développement des systèmes informatiques</mat-card-title>
+            <mat-card-subtitle>Université du Québec en Outaouais</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item class="titre-content-card">
+                <h3>Introduction</h3>
+              </mat-list-item>
+              <mat-list-item class="titre-content-card">
+                <p>
+                  Dans le cadre du cours de développement des systèmes informatiques, Notre équipe a reçu le mandat de conceptualiser et développer un programme web qui permet d'annoter des fichier textes. Ce cahier des charges présentera la structure et la répartition des tâches de ce projet pour notre équipe.
+                </p>
+              </mat-list-item>
+              <mat-list-item class="titre-content-card">
+                <h3>Contexte</h3>
+              </mat-list-item>
+              <mat-list-item class="titre-content-card2">
+                <p>
+                  Le but du programme est de prendre en entrée un fichier texte (.txt) et d'ajouter des annotations personnalisées. Lorsqu'un texte est annoté, un fichier XML est produit contenant les annotations. Le logiciel peut prendre en entrée un fichier déjà annoté (XML) et permet d'ajouter/modifier/supprimer des annotations. Le programme possède une structure par projet, c'est-à-dire que chaque projet permet d'avoir ses documents propres à lui. Les styles d'annotations peuvent varier par projet.
+                </p>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </div>
+  </mat-card>
+</section>
+
+</div>

@@ -1,0 +1,160 @@
+<mat-card  class="view_card_editeur">
+  <mat-card-header>
+    <mat-card-title  class="card_title">Administrateur</mat-card-title>
+      <div>
+        <button mat-mini-fab mat-button [matMenuTriggerFor]="menu" class="boutonMenuAdmin" color="primary"><i class="material-icons">more_vert</i></button>
+        <mat-menu align="left" #menu="matMenu">
+          <button (click)="addAnnotateurClick()" mat-menu-item>Ajouter Annotateur</button>
+          <button (click)="addTextesClick()" mat-menu-item>Ajouter Textes</button>
+          <button (click)="listeAnnotateursClick()" mat-menu-item>Liste d'annotateurs</button>
+          <button (click)="listeTextesClick()" mat-menu-item>Liste de Textes</button>
+        </mat-menu>
+      </div>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-grid-list cols="12" rowHeight="100px">
+    <mat-grid-tile colspan="12" rowspan="6">
+<mat-card *ngIf="vue ==='addText'"  class="card_ajour_fichier">
+  <mat-grid-list cols="4" rowHeight="60px">
+    <mat-grid-tile colspan="4" rowspan="1">
+  <mat-card-header>
+    <mat-card-title>
+      <h3 style="color:#673AB7">
+        Sélection du répertoire
+      </h3>
+    </mat-card-title>
+  </mat-card-header>
+    </mat-grid-tile>
+    <mat-card-content class="card_ajour_fichier_content">
+      <mat-horizontal-stepper [linear]="isLinear">
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Projets</ng-template>
+            <!--<mat-form-field>-->
+              <!--<mat-grid-tile style="background-color: #FFD600" colspan="3">-->
+            <div  colspan="2" rowspan="1" *ngFor="let projet of projets | async">
+              <mat-selection-list >
+                <mat-list-option
+                  (selectionChange)="selectionProjetsRepertoire($event, projet['nom'])"
+                > {{projet['nom']}}</mat-list-option>
+              </mat-selection-list>
+            </div>
+              <!--</mat-grid-tile>-->
+            <!--</mat-form-field>-->
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Annotateurs</ng-template>
+            <mat-selection-list >
+              <mat-list-option
+                (selectionChange)="selectionAnnotateurProjet($event, annotateur['data'])"
+                *ngFor="let annotateur of annotateurs | async"> {{annotateur['data'].prenom}} {{annotateur['data'].nom}}</mat-list-option>
+            </mat-selection-list>
+            <mat-grid-tile colspan="3">
+            </mat-grid-tile>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Text</ng-template>
+          <div class="upload-form">
+            <upload-form  [_listeAnnotateur]="_listeAnnotateur" [listeNomProjetRepertoire]="listeNomProjetRepertoire" [courriel]="courriel" ></upload-form>
+          </div>
+          <button mat-button color="primary" style="margin-top: 45px" (click)="fermerClick()">Fermer</button>
+        </mat-step>
+
+      </mat-horizontal-stepper>
+      </mat-card-content>
+  </mat-grid-list>
+</mat-card>
+      <mat-card *ngIf="vue ==='addAnnotateur'" class="addAnnotateur">
+        <form [formGroup]="annotateurForm" novalidate>
+          <mat-grid-list cols="4" rowHeight="60px">
+            <mat-grid-tile colspan = "4" rowspan="1">
+              <mat-card-header>
+                <mat-card-title>
+                  <h2>Ajouter un administrateur</h2>
+                </mat-card-title>
+              </mat-card-header>
+            </mat-grid-tile>
+            <mat-grid-tile colspan = "4" rowspan="1" class="un">
+              <mat-form-field class="example-full-width">
+                <input matInput id="courriel"
+                       formControlName="courrielForm"
+                       class="form-control"
+                       type="email"
+                       minlength="2"
+                       required
+                       #courriel
+                       placeholder="Courriel" >
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan = "4" rowspan="1" class="un">
+              <mat-form-field class="example-full-width">
+                <input matInput id="prenom"
+                       formControlName="prenomForm"
+                       class="form-control"
+                       minlength="2"
+                       required
+                       #prenom
+                       placeholder="Prénom" >
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan = "4" rowspan="1"  class="un">
+              <mat-form-field class="example-full-width">
+                <input matInput
+                       formControlName="nomForm"
+                       class="form-control"
+                       minlength="2"
+                       required
+                       placeholder="Nom" #nom >
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile  colspan="2" rowspan="1" *ngFor="let projet of projets | async">
+              <mat-selection-list >
+                <mat-list-option
+                  #option
+                  [value]="ischecked"
+                  (selectionChange)="selectionProjets($event, projet['nom'])"
+                > {{projet['nom']}}</mat-list-option>
+              </mat-selection-list>
+            </mat-grid-tile>
+            <mat-grid-tile  colspan="4" rowspan="1">
+              <div class="button-row">
+                <button mat-raised-button
+                        type="submit"
+                        [disabled] = isDisabled
+                        color="primary"
+                        (click)="enregistrerAnnotateurClick(nom.value,prenom.value,courriel.value)"
+                >Enregistrer
+                </button>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </form>
+      </mat-card>
+      <section *ngIf="vue ==='home'" class="home">
+        <mat-grid-list cols="12" rowHeight="100px">
+          <mat-grid-tile rowspan="12" colspan="12" >
+          <app-liste-collection [collectionNom]="collectionNom" [identAdministrateur]="courriel"></app-liste-collection>
+          </mat-grid-tile>
+        <!--<mat-grid-tile rowspan="3" colspan="4" *ngFor="let file of files | async">-->
+          <!--<app-fichier [file]="file" ></app-fichier>-->
+        <!--</mat-grid-tile>-->
+
+        </mat-grid-list>
+      </section>
+    </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>
+
+
+
